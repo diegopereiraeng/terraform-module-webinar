@@ -1,17 +1,27 @@
 variable "region" {
-  description = "A região AWS para implantação"
+  description = "AWS region for deployment"
   type        = string
   default     = "us-east-1"
 }
 
 variable "vpc_cidr" {
-  description = "O bloco CIDR para a VPC"
+  description = "CIDR block for the VPC"
   type        = string
   default     = "10.0.0.0/16"
 }
 
+variable "task_definition" {
+  description = "ARN of the task definition"
+  type        = string
+}
+
+variable "target_group_arn" {
+  description = "ARN of the load balancer target group"
+  type        = string
+}
+
 variable "tags" {
-  description = "Tags a serem aplicadas aos recursos"
+  description = "Tags to apply to resources"
   type        = map(string)
   default     = {
     Environment = "Dev"
