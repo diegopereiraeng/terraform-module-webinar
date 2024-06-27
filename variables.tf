@@ -76,6 +76,16 @@ variable "ecs_container_port" {
   type        = number
 }
 
+variable "ecs_max_size" {
+  description = "Autoscaling Max Size"
+  type        = number
+}
+
+variable "ecs_min_size" {
+  description = "Autoscaling Min Size"
+  type        = number
+}
+
 variable "ecs_container_image" {
   description = "Container image"
   type        = string

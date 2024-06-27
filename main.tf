@@ -100,8 +100,11 @@ module "launch_template" {
 
 module "autoscaling_group" {
   source = "./modules/autoscaling_group"
-  launch_template_id = module.launch_template.launch_template_id
+  desired_capacity   = var.ecs_desired_count
+  max_size           = var.ecs_max_size
+  min_size           = var.ecs_min_size
   subnet_ids         = module.subnet[*].subnet_id
+  launch_template_id = module.launch_template.launch_template_id
   tags               = var.tags
 }
 

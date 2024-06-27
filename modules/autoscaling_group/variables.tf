@@ -1,28 +1,25 @@
 variable "desired_capacity" {
-  description = "Desired capacity of the autoscaling group"
+  description = "Desired number of instances"
   type        = number
-  default     = 1
 }
 
-variable "max_size" {
-  description = "Maximum size of the autoscaling group"
+variable "ecs_max_size" {
+  description = "Maximum number of instances"
   type        = number
-  default     = 1
 }
 
-variable "min_size" {
-  description = "Minimum size of the autoscaling group"
+variable "ecs_min_size" {
+  description = "Minimum number of instances"
   type        = number
-  default     = 1
 }
 
 variable "subnet_ids" {
-  description = "List of subnet IDs"
+  description = "List of subnet IDs for the autoscaling group"
   type        = list(string)
 }
 
 variable "launch_template_id" {
-  description = "Launch Template ID"
+  description = "Launch template ID"
   type        = string
 }
 
