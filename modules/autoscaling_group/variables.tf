@@ -25,3 +25,8 @@ variable "launch_template_id" {
   description = "Launch Template ID"
   type        = string
 }
+
+variable "tags" {
+  description = "Tags to apply to resources"
+  type        = map(string)
+}

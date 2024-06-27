@@ -52,3 +52,8 @@ variable "container_memory" {
   type        = number
   default     = 256
 }
+
+variable "tags" {
+  description = "Tags to apply to resources"
+  type        = map(string)
+}

@@ -25,4 +25,6 @@ resource "aws_ecs_task_definition" "task_definition" {
       value = tostring(var.container_port)
     }]
   }])
+
+  tags = var.tags
 }

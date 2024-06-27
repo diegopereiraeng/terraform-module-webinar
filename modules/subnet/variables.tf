@@ -1,25 +1,25 @@
 variable "vpc_id" {
-  description = "O ID da VPC"
+  description = "VPC ID"
   type        = string
 }
 
 variable "cidr_block" {
-  description = "O bloco CIDR para a subnet"
+  description = "CIDR block for the subnet"
   type        = string
 }
 
 variable "map_public_ip_on_launch" {
-  description = "Mapear IP público no lançamento"
+  description = "Map public IP on launch"
   type        = bool
   default     = true
 }
 
 variable "availability_zone" {
-  description = "Zona de disponibilidade para a subnet"
+  description = "Availability zone for the subnet"
   type        = string
 }
 
 variable "tags" {
-  description = "Tags a serem aplicadas aos recursos"
+  description = "Tags to apply to resources"
   type        = map(string)
 }

@@ -35,9 +35,12 @@ module "subnet" {
   }
 
   vpc_id               = module.vpc.vpc_id
+  cidr_block           = each.value.cidr_block
+  availability_zone    = each.value.availability_zone
   map_public_ip_on_launch = true
   tags                 = var.tags
 }
+
 
 module "internet_gateway" {
   source = "./modules/internet_gateway"
@@ -137,5 +140,5 @@ module "listener" {
 module "key_pair" {
   source = "./modules/key_pair"
   key_name = "deployer-key"
-  public_key_path = var.public_key_path
+  public_key = var.public_key
 }

@@ -20,8 +20,8 @@ variable "target_group_arn" {
   type        = string
 }
 
-variable "public_key_path" {
-  description = "Path to the SSH public key file"
+variable "public_key" {
+  description = "SSH public key content"
   type        = string
 }
 

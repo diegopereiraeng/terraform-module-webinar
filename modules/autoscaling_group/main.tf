@@ -13,4 +13,6 @@ resource "aws_autoscaling_group" "ecs_asg" {
     value               = "ecs-instance"
     propagate_at_launch = true
   }
+
+  tags = var.tags
 }
