@@ -20,8 +20,8 @@ variable "target_group_arn" {
   type        = string
 }
 
-variable "key_name" {
-  description = "Name of the SSH key pair"
+variable "public_key_path" {
+  description = "Path to the SSH public key file"
   type        = string
 }
 
@@ -47,6 +47,16 @@ variable "security_group_ingress_rules" {
       cidr_blocks = ["0.0.0.0/0"]
     }
   ]
+}
+
+variable "access_key" {
+  description = "AWS Access Key"
+  type        = string
+}
+
+variable "secret_key" {
+  description = "AWS Secret Key"
+  type        = string
 }
 
 variable "tags" {
