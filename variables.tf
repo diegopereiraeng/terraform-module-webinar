@@ -3,15 +3,15 @@ variable "region" {
   type        = string
 }
 
-variable "access_key" {
-  description = "AWS Access Key"
-  type        = string
-}
+# variable "access_key" {
+#   description = "AWS Access Key"
+#   type        = string
+# }
 
-variable "secret_key" {
-  description = "AWS Secret Key"
-  type        = string
-}
+# variable "secret_key" {
+#   description = "AWS Secret Key"
+#   type        = string
+# }
 
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
