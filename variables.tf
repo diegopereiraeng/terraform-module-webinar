@@ -106,3 +106,12 @@ variable "tags" {
   type        = map(string)
 }
 
+output "ec2_public_dns" {
+  description = "Public DNS of the EC2 instances"
+  value       = module.launch_template.public_dns
+}
+
+output "lb_dns_name" {
+  description = "DNS name of the load balancer"
+  value       = module.load_balancer.dns_name
+}
