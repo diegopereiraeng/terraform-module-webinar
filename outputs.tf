@@ -5,7 +5,7 @@ output "vpc_id" {
 
 output "subnet_ids" {
   description = "Subnet IDs"
-  value       = module.subnet[*].subnet_id
+  value       = [for s in module.subnet : s.id]
 }
 
 output "security_group_id" {
