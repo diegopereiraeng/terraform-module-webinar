@@ -1,4 +1,4 @@
-output "subnet_id" {
-  description = "O ID da subnet"
+output "id" {
+  description = "The ID of the subnet"
   value       = aws_subnet.subnet.id
 }
