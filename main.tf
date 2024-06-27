@@ -60,7 +60,7 @@ module "route_table_association" {
     subnet2 = module.subnet["subnet2"].subnet_id
   }
 
-  subnet_id     = each.value
+  subnet_id      = each.value
   route_table_id = module.route_table.route_table_id
 }
 
@@ -103,7 +103,7 @@ module "launch_template" {
   source = "./modules/launch_template"
   security_group_id     = module.security_group.security_group_id
   instance_profile_name = module.iam_roles.instance_profile_name
-  key_name              = var.key_name
+  key_name              = module.key_pair.key_name
   tags                  = var.tags
 }
 
@@ -132,4 +132,10 @@ module "listener" {
   load_balancer_arn  = module.load_balancer.load_balancer_arn
   target_group_arn   = module.target_group.target_group_arn
   tags               = var.tags
+}
+
+module "key_pair" {
+  source = "./modules/key_pair"
+  key_name = "deployer-key"
+  public_key_path = var.public_key_path
 }
