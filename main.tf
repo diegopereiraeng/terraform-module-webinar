@@ -93,7 +93,7 @@ module "ecs_task_definition" {
 module "launch_template" {
   source = "./modules/launch_template"
   security_group_id     = module.security_group.security_group_id
-  instance_profile_name = module.iam_roles.instance_profile_name
+  instance_profile_name = module.iam_roles.ecs_instance_profile_name
   key_name              = var.key_name
   tags                  = var.tags
 }
