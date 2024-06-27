@@ -47,3 +47,8 @@ output "listener_arn" {
   description = "Listener ARN"
   value       = module.listener.listener_arn
 }
+
+output "key_name" {
+  description = "Key Pair Name"
+  value       = module.key_pair.key_name
+}
