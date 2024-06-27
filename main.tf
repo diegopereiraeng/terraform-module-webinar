@@ -5,42 +5,33 @@ terraform {
       version = "~> 5.0"
     }
   }
+  backend "s3" {}
 }
 
 provider "aws" {
-  region     = "us-east-1"
-  access_key = var.access_key
-  secret_key = var.secret_key
+  region     = var.region
+  # access_key = var.access_key
+  # secret_key = var.secret_key
 }
 
 module "vpc" {
   source = "./modules/vpc"
   cidr_block           = var.vpc_cidr
-  enable_dns_hostnames = true
+  enable_dns_hostnames = var.enable_dns_hostnames
   tags                 = var.tags
 }
 
 module "subnet" {
   source = "./modules/subnet"
 
-  for_each = {
-    subnet1 = {
-      cidr_block        = "10.0.1.0/24"
-      availability_zone = "us-east-1a"
-    }
-    subnet2 = {
-      cidr_block        = "10.0.2.0/24"
-      availability_zone = "us-east-1b"
-    }
-  }
+  for_each = var.subnets
 
   vpc_id               = module.vpc.vpc_id
   cidr_block           = each.value.cidr_block
   availability_zone    = each.value.availability_zone
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = var.map_public_ip_on_launch
   tags                 = var.tags
 }
-
 
 module "internet_gateway" {
   source = "./modules/internet_gateway"
@@ -58,18 +49,15 @@ module "route_table" {
 module "route_table_association" {
   source = "./modules/route_table_association"
 
-  for_each = {
-    subnet1 = module.subnet["subnet1"].subnet_id
-    subnet2 = module.subnet["subnet2"].subnet_id
-  }
+  for_each = var.subnets
 
-  subnet_id      = each.value
+  subnet_id      = each.value.subnet_id
   route_table_id = module.route_table.route_table_id
 }
 
 module "security_group" {
   source = "./modules/security_group"
-  name   = "ecs_security_group"
+  name   = var.security_group_name
   vpc_id = module.vpc.vpc_id
   ingress_rules = var.security_group_ingress_rules
   tags   = var.tags
@@ -77,13 +65,13 @@ module "security_group" {
 
 module "ecs" {
   source          = "./modules/ecs"
-  cluster_name    = "ecs-cluster"
-  service_name    = "web-service"
-  task_definition = var.task_definition
-  desired_count   = 2
-  target_group_arn = var.target_group_arn
-  container_name  = "web"
-  container_port  = 80
+  cluster_name    = var.ecs_cluster_name
+  service_name    = var.ecs_service_name
+  task_definition = module.ecs_task_definition.task_definition_arn
+  desired_count   = var.ecs_desired_count
+  target_group_arn = module.target_group.target_group_arn
+  container_name  = var.ecs_container_name
+  container_port  = var.ecs_container_port
   tags            = var.tags
 }
 
@@ -96,9 +84,9 @@ module "ecs_task_definition" {
   source = "./modules/ecs_task_definition"
   execution_role_arn = module.iam_roles.ecs_task_execution_role_arn
   task_role_arn      = module.iam_roles.ecs_task_role_arn
-  container_name     = "projeto-x"
-  container_image    = "paulothelibertines/projeto-x:latest"
-  container_port     = 80
+  container_name     = var.ecs_container_name
+  container_image    = var.ecs_container_image
+  container_port     = var.ecs_container_port
   tags               = var.tags
 }
 
@@ -106,7 +94,7 @@ module "launch_template" {
   source = "./modules/launch_template"
   security_group_id     = module.security_group.security_group_id
   instance_profile_name = module.iam_roles.instance_profile_name
-  key_name              = module.key_pair.key_name
+  key_name              = var.key_name
   tags                  = var.tags
 }
 
@@ -139,6 +127,6 @@ module "listener" {
 
 module "key_pair" {
   source = "./modules/key_pair"
-  key_name = "deployer-key"
+  key_name = var.key_name
   public_key = var.public_key
 }

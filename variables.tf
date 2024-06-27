@@ -1,52 +1,6 @@
 variable "region" {
   description = "AWS region for deployment"
   type        = string
-  default     = "us-east-1"
-}
-
-variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "task_definition" {
-  description = "ARN of the task definition"
-  type        = string
-}
-
-variable "target_group_arn" {
-  description = "ARN of the load balancer target group"
-  type        = string
-}
-
-variable "public_key" {
-  description = "SSH public key content"
-  type        = string
-}
-
-variable "security_group_ingress_rules" {
-  description = "List of ingress rules for the security group"
-  type = list(object({
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = [
-    {
-      from_port   = 80
-      to_port     = 80
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    },
-    {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  ]
 }
 
 variable "access_key" {
@@ -59,11 +13,86 @@ variable "secret_key" {
   type        = string
 }
 
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+}
+
+variable "enable_dns_hostnames" {
+  description = "Enable DNS hostnames for the VPC"
+  type        = bool
+}
+
+variable "subnets" {
+  description = "Subnets configuration"
+  type = map(object({
+    cidr_block        = string
+    availability_zone = string
+  }))
+}
+
+variable "map_public_ip_on_launch" {
+  description = "Map public IP on launch"
+  type        = bool
+}
+
+variable "security_group_name" {
+  description = "Name of the security group"
+  type        = string
+}
+
+variable "security_group_ingress_rules" {
+  description = "List of ingress rules for the security group"
+  type = list(object({
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+}
+
+variable "ecs_cluster_name" {
+  description = "ECS cluster name"
+  type        = string
+}
+
+variable "ecs_service_name" {
+  description = "ECS service name"
+  type        = string
+}
+
+variable "ecs_desired_count" {
+  description = "Desired count of ECS service"
+  type        = number
+}
+
+variable "ecs_container_name" {
+  description = "Container name"
+  type        = string
+}
+
+variable "ecs_container_port" {
+  description = "Container port"
+  type        = number
+}
+
+variable "ecs_container_image" {
+  description = "Container image"
+  type        = string
+}
+
+variable "key_name" {
+  description = "Name of the SSH key pair"
+  type        = string
+}
+
+variable "public_key" {
+  description = "SSH public key content"
+  type        = string
+}
+
 variable "tags" {
   description = "Tags to apply to resources"
   type        = map(string)
-  default     = {
-    Environment = "Dev"
-    Project     = "Webinar"
-  }
 }
+
