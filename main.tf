@@ -1,28 +1,35 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+  backend "s3" {}
+}
+
+provider "aws" {
+  region     = var.region
+  # access_key = var.access_key
+  # secret_key = var.secret_key
+}
+
 module "vpc" {
   source = "./modules/vpc"
   cidr_block           = var.vpc_cidr
-  enable_dns_hostnames = true
+  enable_dns_hostnames = var.enable_dns_hostnames
   tags                 = var.tags
 }
 
 module "subnet" {
   source = "./modules/subnet"
 
-  for_each = {
-    subnet1 = {
-      cidr_block        = "10.0.1.0/24"
-      availability_zone = "us-east-1a"
-    }
-    subnet2 = {
-      cidr_block        = "10.0.2.0/24"
-      availability_zone = "us-east-1b"
-    }
-  }
+  for_each = var.subnets
 
   vpc_id               = module.vpc.vpc_id
   cidr_block           = each.value.cidr_block
   availability_zone    = each.value.availability_zone
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = var.map_public_ip_on_launch
   tags                 = var.tags
 }
 
@@ -46,6 +53,7 @@ module "route_table_association" {
   subnet_id      = each.value.id
   route_table_id = module.route_table.route_table_id
 }
+
 
 module "security_group" {
   source = "./modules/security_group"
@@ -85,8 +93,8 @@ module "ecs_task_definition" {
 module "launch_template" {
   source = "./modules/launch_template"
   security_group_id     = module.security_group.security_group_id
-  instance_profile_name = module.iam_roles.instance_profile_name
-  key_name              = module.key_pair.key_name
+  instance_profile_name = module.iam_roles.ecs_instance_profile_name
+  key_name              = var.key_name
   tags                  = var.tags
 }
 
