@@ -108,13 +108,13 @@ variable "tags" {
 
 variable "ami" {
   description = "Tags to apply to resources"
-  type        = map(string)
+  type        = string
   default     = "ami-04dbe8f827e4420f6"
 }
 
 variable "vm_size" {
   description = "Tags to apply to resources"
-  type        = map(string)
+  type        = string
   default     = "t3.micro"
 }
 
