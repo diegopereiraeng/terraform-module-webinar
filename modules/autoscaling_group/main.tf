@@ -1,7 +1,7 @@
 resource "aws_autoscaling_group" "ecs_asg" {
   desired_capacity     = var.desired_capacity
-  max_size             = var.ecs_max_size
-  min_size             = var.ecs_min_size
+  max_size             = var.max_size
+  min_size             = var.min_size
   vpc_zone_identifier  = var.subnet_ids
   launch_template {
     id      = var.launch_template_id
@@ -22,5 +22,4 @@ resource "aws_autoscaling_group" "ecs_asg" {
       propagate_at_launch = true
     }
   }
-
 }

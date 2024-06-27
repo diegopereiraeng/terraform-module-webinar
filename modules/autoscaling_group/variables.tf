@@ -3,12 +3,12 @@ variable "desired_capacity" {
   type        = number
 }
 
-variable "ecs_max_size" {
+variable "max_size" {
   description = "Maximum number of instances"
   type        = number
 }
 
-variable "ecs_min_size" {
+variable "min_size" {
   description = "Minimum number of instances"
   type        = number
 }
