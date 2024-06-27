@@ -95,6 +95,8 @@ module "launch_template" {
   security_group_id     = module.security_group.security_group_id
   instance_profile_name = module.iam_roles.ecs_instance_profile_name
   key_name              = var.key_name
+  ami                   = var.ami
+  vm_size               = var.vm_size
   tags                  = var.tags
 }
 

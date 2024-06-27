@@ -17,3 +17,11 @@ variable "tags" {
   description = "Tags to apply to resources"
   type        = map(string)
 }
+variable "ami" {
+  description = "AMI name"
+  type        = string
+}
+variable "vm_size" {
+  description = "VM size"
+  type        = string
+}

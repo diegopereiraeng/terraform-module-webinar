@@ -1,7 +1,7 @@
 resource "aws_launch_template" "ecs_lt" {
   name_prefix   = "ecs-template"
-  image_id      = "ami-057f57c2fcd14e5f4"  # ECS-optimized AMI
-  instance_type = "t3.micro"
+  image_id      = var.ami # ECS-optimized AMI
+  instance_type = var.vm_size # "t3.micro"
   key_name      = var.key_name
 
   vpc_security_group_ids = [var.security_group_id]

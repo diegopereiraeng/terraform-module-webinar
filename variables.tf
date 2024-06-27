@@ -106,6 +106,20 @@ variable "tags" {
   type        = map(string)
 }
 
+variable "ami" {
+  description = "Tags to apply to resources"
+  type        = map(string)
+  default     = "ami-04dbe8f827e4420f6"
+}
+
+variable "vm_size" {
+  description = "Tags to apply to resources"
+  type        = map(string)
+  default     = "t3.micro"
+}
+
+
+
 output "ec2_public_dns" {
   description = "Public DNS of the EC2 instances"
   value       = module.launch_template.public_dns
