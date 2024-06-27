@@ -3,9 +3,7 @@ resource "aws_lb" "main" {
   internal           = false
   load_balancer_type = "network"
   subnets            = var.subnet_ids
-
-  security_groups = [var.security_group_id]
-
+  security_groups    = [var.security_group_id]
   enable_deletion_protection = false
 
   lifecycle {
