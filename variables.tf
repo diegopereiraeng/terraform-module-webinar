@@ -3,6 +3,17 @@ variable "region" {
   type        = string
 }
 
+variable "harness_organization_id" {
+  description = "Harness Org identifier"
+  type        = string
+}
+
+variable "harness_project_id" {
+  description = "Harness Project identifier"
+  type        = string
+}
+
+
 # variable "access_key" {
 #   description = "AWS Access Key"
 #   type        = string
