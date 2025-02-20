@@ -1,15 +1,3 @@
-
-
-variable "harness_organization_id" {
-  description = "Harness org identifier"
-  type        = string
-}
-
-variable "harness_project_id" {
-  description = "Harness project identifier"
-  type        = string
-}
-
 variable "cluster_name" {
   description = "O nome do cluster ECS"
   type        = string
