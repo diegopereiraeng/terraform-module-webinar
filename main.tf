@@ -73,8 +73,6 @@ module "ecs" {
   container_name  = var.ecs_container_name
   container_port  = var.ecs_container_port
   tags            = var.tags
-  harness_organization_id       = var.harness_organization_id
-  harness_project_id            = var.harness_project_id
 }
 
 module "iam_roles" {
