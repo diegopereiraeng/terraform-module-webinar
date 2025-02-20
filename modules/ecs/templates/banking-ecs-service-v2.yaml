@@ -9,7 +9,6 @@ loadBalancers:
 serviceRegistries: []
 desiredCount: ${desired_count}
 platformFamily: Linux
-taskDefinition: ${task_definition}
 deploymentConfiguration:
   maximumPercent: ${deployment_maximum_percent}
   minimumHealthyPercent: ${deployment_minimum_healthy_percent}
