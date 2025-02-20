@@ -22,8 +22,8 @@ resource "aws_ecs_service" "service" {
 }
 
 resource "harness_platform_file_store_file" "ecs_service_manifest" {
-  org_id            = var.organization_id
-  project_id        = var.project_id
+  org_id            = var.harness_organization_id
+  project_id        = var.harness_project_id
   identifier        = var.service_name
   name              = var.service_name
   description       = "ECS Service Definition YAML for ${var.service_name}"
