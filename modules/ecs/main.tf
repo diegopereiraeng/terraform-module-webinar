@@ -34,7 +34,7 @@ resource "harness_platform_file_store_file" "ecs_service_manifest" {
   
   file_content_path = local_file.generated_manifest_file.filename
   mime_type         = "text/yaml"
-  file_usage        = "ManifestFile"
+  file_usage        = "MANIFEST_FILE"
   
   depends_on = [local_file.generated_manifest_file]
 }
