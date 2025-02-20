@@ -34,7 +34,7 @@ resource "harness_platform_file_store_folder" "ecs_folder" {
 resource "harness_platform_file_store_folder" "env_folder" {
   org_id            = var.harness_organization_id
   project_id        = var.harness_project_id
-  identifier        = lower(format("%s", replace(var.env_name, "-", "_")))
+  identifier        = format("%s_%s", harness_platform_file_store_folder.ecs_folder.id,lower(format("%s", replace(var.env_name, "-", "_"))))
   name              = var.env_name
   description       = "ECS Env Folder for ${var.env_name}"
   tags              = ["provisioned:by-automation"]
@@ -44,7 +44,7 @@ resource "harness_platform_file_store_folder" "env_folder" {
 resource "harness_platform_file_store_file" "ecs_service_manifest" {
   org_id            = var.harness_organization_id
   project_id        = var.harness_project_id
-  identifier        = lower(format("%s", replace(var.service_name, "-", "_")))
+  identifier        = format("%s_%s_s%", harness_platform_file_store_folder.ecs_folder.id,lower(format("%s", replace(var.env_name, "-", "_"))),lower(format("%s", replace(var.service_name, "-", "_"))))
   name              = var.service_name
   description       = "ECS Service Definition YAML for ${var.service_name}"
   tags              = ["provisioned:by-automation"]
