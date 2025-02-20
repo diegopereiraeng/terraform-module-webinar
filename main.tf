@@ -84,6 +84,8 @@ module "ecs" {
   tags            = var.tags
   harness_organization_id       = var.harness_organization_id
   harness_project_id            = var.harness_project_id
+  account_id            = var.account_id
+  platform_api_key            = var.platform_api_key
 }
 
 module "iam_roles" {
