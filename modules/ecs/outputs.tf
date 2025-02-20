@@ -3,16 +3,6 @@ output "ecs_cluster_id" {
   value       = aws_ecs_cluster.cluster.id
 }
 
-output "ecs_service_name" {
-  description = "O nome do serviço ECS"
-  value       = aws_ecs_service.service.name
-}
-
-output "ecs_service_arn" {
-  description = "The ARN of the ECS service"
-  value       = aws_ecs_service.service.id
-}
-
 output "ecs_container_name" {
   description = "The container name as specified in the ECS service load_balancer block"
   value       = var.container_name
