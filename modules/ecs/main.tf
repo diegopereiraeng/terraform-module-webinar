@@ -68,7 +68,7 @@ resource "harness_platform_file_store_file" "ecs_service_manifest" {
   name              = format("%s-%s",var.service_name,".yaml")
   description       = "ECS Service Definition YAML for ${var.service_name}"
   tags              = ["provisioned:by-automation"]
-  parent_identifier = harness_platform_file_store_folder.env_folder.id
+  parent_identifier = harness_platform_file_store_folder.ecs_service_folder.id
   
   file_content_path = local_file.generated_manifest_file.filename
   mime_type         = "text/yaml"
