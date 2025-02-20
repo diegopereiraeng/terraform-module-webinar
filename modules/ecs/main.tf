@@ -31,25 +31,41 @@ resource "harness_platform_file_store_folder" "ecs_folder" {
   parent_identifier = "Root"
 }
 
-resource "harness_platform_file_store_folder" "env_folder" {
+resource "harness_platform_file_store_folder" "ecs_service_folder" {
   org_id            = var.harness_organization_id
   project_id        = var.harness_project_id
-  identifier        = format("%s_%s", harness_platform_file_store_folder.ecs_folder.id, lower(format("%s", replace(var.env_name, "-", "_"))))
-  name              = var.env_name
-  description       = "ECS Env Folder for ${var.env_name}"
+  identifier        = format("%s_%s", harness_platform_file_store_folder.ecs_folder.id, lower(format("%s", replace(var.service_name, "-", "_"))))
+  name              = lower(format("%s", replace(var.service_name, "-", "_")))
+  description       = "ECS service Folder"
   tags              = ["provisioned:by-automation"]
   parent_identifier = harness_platform_file_store_folder.ecs_folder.id
 }
 
-resource "harness_platform_file_store_file" "ecs_service_manifest" {
+resource "harness_platform_file_store_folder" "env_folder" {
   org_id            = var.harness_organization_id
   project_id        = var.harness_project_id
   identifier        = format("%s_%s_%s", 
                            harness_platform_file_store_folder.ecs_folder.id, 
+                           lower(format("%s", replace(var.service_name, "-", "_"))), 
+                           lower(format("%s", replace(var.env_name, "-", "_")))
+                          )
+  name              = var.env_name
+  description       = "ECS Env Folder for ${var.env_name}"
+  tags              = ["provisioned:by-automation"]
+  parent_identifier = harness_platform_file_store_folder.ecs_service_folder.id
+}
+
+
+resource "harness_platform_file_store_file" "ecs_service_manifest" {
+  org_id            = var.harness_organization_id
+  project_id        = var.harness_project_id
+  identifier        = format("%s_%s_%s_s%", 
+                           harness_platform_file_store_folder.ecs_folder.id, 
+                           lower(format("%s", replace(var.service_name, "-", "_"))),
                            lower(format("%s", replace(var.env_name, "-", "_"))), 
                            lower(format("%s", replace(var.service_name, "-", "_")))
                           )
-  name              = var.service_name
+  name              = format("%s-%s",var.service_name,".yaml")
   description       = "ECS Service Definition YAML for ${var.service_name}"
   tags              = ["provisioned:by-automation"]
   parent_identifier = harness_platform_file_store_folder.env_folder.id
@@ -60,5 +76,3 @@ resource "harness_platform_file_store_file" "ecs_service_manifest" {
   
   depends_on = [local_file.generated_manifest_file]
 }
-
-
