@@ -52,3 +52,8 @@ output "key_name" {
   description = "Key Pair Name"
   value       = module.key_pair.key_name
 }
+
+output "ecs_task_definition_arn" {
+  description = "The ECS Task Definition ARN from the module"
+  value       = module.ecs_task_definition.task_definition_arn
+}
