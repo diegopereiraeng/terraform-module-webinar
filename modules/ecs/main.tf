@@ -21,9 +21,17 @@ resource "aws_ecs_service" "service" {
   }
 }
 
-resource "local_file" "generated_manifest" {
-  content  = templatefile("${path.module}/templates/banking-ecs-service-v2.yaml", {
-    ecs_service_arn                    = aws_ecs_service.service.arn
+resource "harness_platform_file_store_file" "ecs_service_manifest" {
+  org_id            = var.organization_id
+  project_id        = var.project_id
+  identifier        = var.service_name
+  name              = var.service_name
+  description       = "ECS Service Definition YAML for ${var.service_name}"
+  tags              = ["provisioned:by-automation"]
+  parent_identifier = "Root"
+
+  file_content = templatefile("${path.module}/templates/banking-ecs-service-v2.yaml", {
+    ecs_service_arn                    = service.service.arn
     service_name                       = var.service_name
     cluster_arn                        = aws_ecs_cluster.cluster.arn
     target_group_arn                   = var.target_group_arn
