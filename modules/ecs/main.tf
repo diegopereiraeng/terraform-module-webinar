@@ -24,8 +24,8 @@ resource "local_file" "generated_manifest_file" {
 resource "harness_platform_file_store_folder" "ecs_folder" {
   org_id            = var.harness_organization_id
   project_id        = var.harness_project_id
-  identifier        = ecs_service_definitions
-  name              = ecs_service_definitions
+  identifier        = "ecs_service_definitions"
+  name              = "ecs_service_definitions"
   description       = "ECS Folder"
   tags              = ["provisioned:by-automation"]
   parent_identifier = "Root"
