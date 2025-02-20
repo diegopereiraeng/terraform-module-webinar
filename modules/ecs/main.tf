@@ -21,7 +21,25 @@ resource "local_file" "generated_manifest_file" {
   filename = "${path.module}/generated/banking-ecs-service-v2.yaml"
 }
 
+resource "harness_platform_file_store_folder" "ecs_folder" {
+  org_id            = var.harness_organization_id
+  project_id        = var.harness_project_id
+  identifier        = ecs_service_definitions
+  name              = ecs_service_definitions
+  description       = "ECS Folder"
+  tags              = ["provisioned:by-automation"]
+  parent_identifier = "Root"
+}
 
+resource "harness_platform_file_store_folder" "env_folder" {
+  org_id            = var.harness_organization_id
+  project_id        = var.harness_project_id
+  identifier        = lower(format("%s", replace(var.env_name, "-", "_")))
+  name              = var.env_name
+  description       = "ECS Env Folder for ${var.env_name}"
+  tags              = ["provisioned:by-automation"]
+  parent_identifier = harness_platform_file_store_folder.ecs_folder.id
+}
 
 resource "harness_platform_file_store_file" "ecs_service_manifest" {
   org_id            = var.harness_organization_id
@@ -30,7 +48,7 @@ resource "harness_platform_file_store_file" "ecs_service_manifest" {
   name              = var.service_name
   description       = "ECS Service Definition YAML for ${var.service_name}"
   tags              = ["provisioned:by-automation"]
-  parent_identifier = "Root"
+  parent_identifier = harness_platform_file_store_folder.env_folder.id
   
   file_content_path = local_file.generated_manifest_file.filename
   mime_type         = "text/yaml"

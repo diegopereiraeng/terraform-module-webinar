@@ -1,3 +1,8 @@
+variable "env_name" {
+  description = "Env Name"
+  type        = string
+}
+
 variable "account_id" {
   description = "The Harness account id"
   type        = string

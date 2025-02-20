@@ -86,6 +86,7 @@ module "ecs" {
   harness_project_id        = var.harness_project_id
   account_id        = var.account_id
   platform_api_key  = var.platform_api_key
+  env_name          = var.env_name
 }
 
 module "iam_roles" {
