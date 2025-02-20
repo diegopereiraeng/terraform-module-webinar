@@ -57,3 +57,29 @@ output "ecs_task_definition_arn" {
   description = "The ECS Task Definition ARN from the module"
   value       = module.ecs_task_definition.task_definition_arn
 }
+
+
+output "ecs_service_arn" {
+  description = "The ARN of the ECS service"
+  value       = module.ecs.ecs_service_arn
+}
+
+output "ecs_container_name" {
+  description = "The container name as specified in the ECS service load_balancer block"
+  value       = module.ecs.ecs_container_name
+}
+
+output "ecs_container_port" {
+  description = "The container port as specified in the ECS service load_balancer block"
+  value       = module.ecs.ecs_container_port
+}
+
+output "ecs_desired_count" {
+  description = "The desired number of task instances for the ECS service"
+  value       = module.ecs.ecs_desired_count
+}
+
+output "ecs_tags" {
+  description = "The tags applied to the ECS service"
+  value       = module.ecs.ecs_tags
+}
