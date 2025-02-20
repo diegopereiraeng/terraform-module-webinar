@@ -1,3 +1,23 @@
+variable "account_id" {
+  description = "The Harness account id"
+  type        = string
+}
+
+variable "platform_api_key" {
+  description = "The Harness API key"
+  type        = string
+}
+
+variable "harness_organization_id" {
+  description = "Harness Org identifier"
+  type        = string
+}
+
+variable "harness_project_id" {
+  description = "Harness Project identifier"
+  type        = string
+}
+
 variable "cluster_name" {
   description = "O nome do cluster ECS"
   type        = string
