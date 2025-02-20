@@ -18,11 +18,6 @@ output "ecs_cluster_id" {
   value       = module.ecs.ecs_cluster_id
 }
 
-output "ecs_service_name" {
-  description = "ECS Service Name"
-  value       = module.ecs.ecs_service_name
-}
-
 output "launch_template_id" {
   description = "Launch Template ID"
   value       = module.launch_template.launch_template_id
@@ -56,12 +51,6 @@ output "key_name" {
 output "ecs_task_definition_arn" {
   description = "The ECS Task Definition ARN from the module"
   value       = module.ecs_task_definition.task_definition_arn
-}
-
-
-output "ecs_service_arn" {
-  description = "The ARN of the ECS service"
-  value       = module.ecs.ecs_service_arn
 }
 
 output "ecs_container_name" {
