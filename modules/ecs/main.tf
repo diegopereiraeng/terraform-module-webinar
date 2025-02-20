@@ -23,9 +23,9 @@ resource "aws_ecs_service" "service" {
 
 resource "local_file" "generated_manifest" {
   content  = templatefile("${path.module}/templates/banking-ecs-service-v2.yaml", {
-    ecs_service_arn                    = aws_ecs_service.service.arn
+    ecs_service_arn                    = aws_ecs_service.service.id
     service_name                       = var.service_name
-    cluster_arn                        = aws_ecs_cluster.cluster.arn
+    cluster_arn                        = aws_ecs_cluster.cluster.id
     target_group_arn                   = var.target_group_arn
     container_name                     = var.container_name
     container_port                     = var.container_port
